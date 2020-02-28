@@ -28,3 +28,5 @@ avrora-*.tar
 /priv/plts/*.plt.hash
 
 TODO.org
+
+/.elixir_ls
