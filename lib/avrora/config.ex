@@ -24,7 +24,12 @@ defmodule Avrora.Config do
   def registry_url, do: get_env(:registry_url, nil)
 
   @doc false
-  def registry_auth, do: get_env(:registry_auth, nil)
+  def registry_basic_auth do
+    with [user, pass] <- get_env(:registry_basic_auth, nil) do
+      base64 = :base64.encode_to_string("#{user}:#{pass}")
+      {'Authorization', 'Basic #{base64}'}
+    end
+  end
 
   @doc false
   def names_cache_ttl, do: get_env(:names_cache_ttl, :timer.minutes(5))

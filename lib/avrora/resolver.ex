@@ -100,12 +100,7 @@ defmodule Avrora.Resolver do
             memory_storage().put(schema.id, schema)
           end
 
-        {:error, reason}
-        when reason in [
-               :unconfigured_registry_url,
-               :malformed_registry_auth,
-               :no_such_registry_auth_file
-             ] ->
+        {:error, :unconfigured_registry_url} ->
           with {:ok, schema} <- file_storage().get(name),
                do: memory_storage().put(schema_name.name, schema)
 

@@ -45,13 +45,13 @@ Configure the library in `config/config.exs`:
 ```elixir
 config :avrora,
   registry_url: "http://localhost:8081",
-  registry_auth: {:basic, "username", "password"}
+  registry_basic_auth: ["username", "password"]
   schemas_path: Path.expand("./priv/schemas"),
   names_cache_ttl: :timer.minutes(5)
 ```
 
 - `registry_url` - URL for the Confluent Schema Registry, default `nil`
-- `registry_auth` - Authentication for the Confluent Schema Registry, default `nil`
+- `registry_basic_auth` - Authentication for the Confluent Schema Registry, default `nil`
 - `schemas_path` - Base path for locally stored schema files, default `./priv/schemas`
 - `names_cache_ttl` - Time in ms to cache schemas by name in memory, default `300_000`.
 
@@ -60,7 +60,7 @@ schemas are resolved in the Schema Registry by numeric id or **versioned** name,
 it is unique. If the schema is resolved by name, then someone may update the
 schema, so the TTL ensures that it will be reloaded to use the latest version.
 
-Avrora currently supports `Basic` authentication mechanism out of the box. To use it, set `registry_auth` to `{mechanism, username, password}` where `mechanism` is the authentication mechanism atom `:basic`, `username` is the Confluent Schema Registry API access key and `password` is the Confluent Schema Registry API access secret. Alternatively, you can also use `{mechanism, file}` where `file` is the path to a text file that contains two lines, first line for username and second line for password.
+Avrora currently supports `Basic` authentication mechanism out of the box. To use it, set `registry_basic_auth` to `[username, password]` where `username` is the Confluent Schema Registry API access key and `password` is the Confluent Schema Registry API access secret.
 
 ## Start cache process
 
